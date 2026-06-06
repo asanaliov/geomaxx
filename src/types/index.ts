@@ -41,3 +41,20 @@ export interface GameState {
   /** True when the player guessed correctly. */
   won: boolean
 }
+
+/** Aggregate play history across all puzzles, persisted to localStorage. */
+export interface Stats {
+  /** Total games completed (win or loss). */
+  played: number
+  /** Total games won. */
+  won: number
+  /** Consecutive days won, up to and including the most recent game. */
+  currentStreak: number
+  /** Best streak ever achieved. */
+  maxStreak: number
+  /**
+   * Outcome distribution. Indices 0–5 count wins in 1–6 guesses;
+   * index 6 counts losses ("X").
+   */
+  distribution: number[]
+}

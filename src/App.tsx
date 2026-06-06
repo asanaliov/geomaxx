@@ -1,20 +1,24 @@
+import { GameMap } from './components/GameMap'
+import { getDailyIndex } from './lib/daily'
+import { LOCATIONS } from './lib/locations'
+
+/** Starting zoom for an unsolved puzzle (most zoomed-in). */
+const INITIAL_ZOOM = 17
+
 function App() {
+  const answer = LOCATIONS[getDailyIndex()]
+
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
-      <h1 className="font-mono text-4xl font-bold tracking-tight text-text">
-        🌍 GEOMAXX
-      </h1>
-      <p className="font-sans text-text-dim">
-        Daily satellite image guessing game — scaffold ready.
-      </p>
-      <div className="mt-2 flex gap-2">
-        <span className="rounded bg-success px-3 py-1 font-mono text-sm text-bg">
-          Tailwind OK
-        </span>
-        <span className="rounded bg-accent px-3 py-1 font-mono text-sm text-bg">
-          Fonts OK
-        </span>
-      </div>
+    <div className="flex h-full flex-col">
+      <header className="flex items-center justify-between border-b border-border px-4 py-3">
+        <h1 className="font-mono text-xl font-bold tracking-tight text-text">
+          🌍 GEOMAXX
+        </h1>
+      </header>
+
+      <main className="relative flex-1">
+        <GameMap lat={answer.lat} lng={answer.lng} zoomLevel={INITIAL_ZOOM} />
+      </main>
     </div>
   )
 }
