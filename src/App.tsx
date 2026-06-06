@@ -1,12 +1,9 @@
 import { GameMap } from './components/GameMap'
-import { getDailyIndex } from './lib/daily'
-import { LOCATIONS } from './lib/locations'
-
-/** Starting zoom for an unsolved puzzle (most zoomed-in). */
-const INITIAL_ZOOM = 17
+import { GuessInput } from './components/GuessInput'
+import { useGame } from './hooks/useGame'
 
 function App() {
-  const answer = LOCATIONS[getDailyIndex()]
+  const { answer, currentZoom, guesses, gameOver, submitGuess } = useGame()
 
   return (
     <div className="flex h-full flex-col">
@@ -17,8 +14,10 @@ function App() {
       </header>
 
       <main className="relative flex-1">
-        <GameMap lat={answer.lat} lng={answer.lng} zoomLevel={INITIAL_ZOOM} />
+        <GameMap lat={answer.lat} lng={answer.lng} zoomLevel={currentZoom} />
       </main>
+
+      <GuessInput guesses={guesses} disabled={gameOver} onGuess={submitGuess} />
     </div>
   )
 }
