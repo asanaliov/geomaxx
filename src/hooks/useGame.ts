@@ -27,6 +27,7 @@ interface UseGame {
   answer: Location
   guesses: GuessResult[]
   currentZoom: number
+  zoomIndex: number
   gameOver: boolean
   won: boolean
   remainingGuesses: number
@@ -77,6 +78,7 @@ export function useGame(): UseGame {
     answer,
     guesses: state.guesses,
     currentZoom: ZOOM_LEVELS[state.zoomIndex],
+    zoomIndex: state.zoomIndex,
     gameOver: state.gameOver,
     won: state.won,
     remainingGuesses: MAX_GUESSES - state.guesses.length,
