@@ -57,4 +57,6 @@ export interface Stats {
    * index 6 counts losses ("X").
    */
   distribution: number[]
+  /** Puzzle number of the most recently recorded game (-1 if none). */
+  lastPuzzle: number
 }

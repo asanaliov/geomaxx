@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react'
 import { GameMap } from './components/GameMap'
 import { GuessInput } from './components/GuessInput'
+import { Header } from './components/Header'
+import { HelpModal } from './components/HelpModal'
 import { HUD } from './components/HUD'
 import { ResultModal } from './components/ResultModal'
+import { StatsModal } from './components/StatsModal'
 import { MAX_GUESSES, useGame } from './hooks/useGame'
+import { useStats } from './hooks/useStats'
+import { hasSeenHelp, markHelpSeen } from './lib/storage'
 
 /** Zoom the map settles on when revealing the answer. */
 const REVEAL_ZOOM = 15
@@ -22,23 +27,34 @@ function App() {
     submitGuess,
   } = useGame()
 
+  const { stats, recordResult } = useStats()
   const [modalOpen, setModalOpen] = useState(false)
+  const [helpOpen, setHelpOpen] = useState(() => !hasSeenHelp())
+  const [statsOpen, setStatsOpen] = useState(false)
+
+  const guessCount = guesses.length
 
   useEffect(() => {
     if (!gameOver) return
+    recordResult(puzzleNumber, won, guessCount)
     const timer = setTimeout(() => setModalOpen(true), REVEAL_DELAY_MS)
     return () => clearTimeout(timer)
-  }, [gameOver])
+  }, [gameOver, puzzleNumber, won, guessCount, recordResult])
+
+  const closeHelp = () => {
+    setHelpOpen(false)
+    markHelpSeen()
+  }
 
   const mapZoom = won ? REVEAL_ZOOM : currentZoom
+  const todayBucket = gameOver ? (won ? guessCount - 1 : 6) : null
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex items-center justify-between border-b border-border px-4 py-3">
-        <h1 className="font-mono text-xl font-bold tracking-tight text-text">
-          🌍 GEOMAXX
-        </h1>
-      </header>
+      <Header
+        onHelp={() => setHelpOpen(true)}
+        onStats={() => setStatsOpen(true)}
+      />
 
       <main className="relative flex-1">
         <GameMap
@@ -59,6 +75,15 @@ function App() {
         guesses={guesses}
         puzzleNumber={puzzleNumber}
         onClose={() => setModalOpen(false)}
+      />
+
+      <HelpModal open={helpOpen} onClose={closeHelp} />
+
+      <StatsModal
+        open={statsOpen}
+        onClose={() => setStatsOpen(false)}
+        stats={stats}
+        highlightBucket={todayBucket}
       />
     </div>
   )

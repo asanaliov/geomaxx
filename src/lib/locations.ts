@@ -6,7 +6,7 @@ import type { Location } from '../types'
  * accurate. Keep one entry per line.
  */
 export const LOCATIONS: Location[] = [
-  { name: 'Eiffel Tower', lat: 48.8584, lng: 2.2945, country: 'France', continent: 'Europe', difficulty: 'easy' },
+  { name: 'Table Mountain', lat: -33.9628, lng: 18.4098, country: 'South Africa', continent: 'Africa', difficulty: 'medium' },
   { name: 'Statue of Liberty', lat: 40.6892, lng: -74.0445, country: 'United States', continent: 'North America', difficulty: 'easy' },
   { name: 'Colosseum', lat: 41.8902, lng: 12.4922, country: 'Italy', continent: 'Europe', difficulty: 'easy' },
   { name: 'Great Pyramid of Giza', lat: 29.9792, lng: 31.1342, country: 'Egypt', continent: 'Africa', difficulty: 'easy' },
@@ -26,7 +26,7 @@ export const LOCATIONS: Location[] = [
   { name: 'Brandenburg Gate', lat: 52.5163, lng: 13.3777, country: 'Germany', continent: 'Europe', difficulty: 'medium' },
   { name: 'Acropolis of Athens', lat: 37.9715, lng: 23.7257, country: 'Greece', continent: 'Europe', difficulty: 'medium' },
   { name: 'Angkor Wat', lat: 13.4125, lng: 103.867, country: 'Cambodia', continent: 'Asia', difficulty: 'medium' },
-  { name: 'Table Mountain', lat: -33.9628, lng: 18.4098, country: 'South Africa', continent: 'Africa', difficulty: 'medium' },
+  { name: 'Eiffel Tower', lat: 48.8584, lng: 2.2945, country: 'France', continent: 'Europe', difficulty: 'easy' },
   { name: 'Niagara Falls', lat: 43.0799, lng: -79.0747, country: 'Canada', continent: 'North America', difficulty: 'medium' },
   { name: 'Chichen Itza', lat: 20.6843, lng: -88.5678, country: 'Mexico', continent: 'North America', difficulty: 'hard' },
   { name: 'Hagia Sophia', lat: 41.0086, lng: 28.9802, country: 'Turkey', continent: 'Europe', difficulty: 'hard' },

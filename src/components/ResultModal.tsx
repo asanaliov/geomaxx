@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { GuessResult, Location } from '../types'
 import { buildShareText, guessEmoji } from '../lib/score'
+import { Modal } from './Modal'
 
 /** Win titles indexed by guess count (1–6). Index 0 is unused. */
 const WIN_TITLES = ['', 'Incredible!', 'Genius!', 'Impressive!', 'Solid!', 'Phew!', 'Just made it!']
@@ -26,8 +27,6 @@ export function ResultModal({
   const [copied, setCopied] = useState(false)
   const toastTimer = useRef<number | undefined>(undefined)
 
-  if (!open) return null
-
   const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(
@@ -42,23 +41,8 @@ export function ResultModal({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/60 p-4"
-      onClick={onClose}
-    >
-      <div
-        className="relative w-full max-w-sm animate-pop rounded-lg border border-border bg-surface p-6 text-center shadow-xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute right-3 top-3 font-mono text-lg text-text-dim hover:text-text"
-        >
-          ×
-        </button>
-
+    <Modal open={open} onClose={onClose}>
+      <div className="text-center">
         <div className="text-5xl">{won ? '🎉' : '😔'}</div>
         <h2 className="mt-3 font-mono text-2xl font-bold text-text">
           {won ? WIN_TITLES[guesses.length] : 'Better luck tomorrow'}
@@ -85,13 +69,13 @@ export function ResultModal({
         >
           Share
         </button>
-
-        {copied && (
-          <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 animate-pop rounded bg-text px-3 py-1.5 font-mono text-xs font-bold text-bg shadow-lg">
-            Copied!
-          </div>
-        )}
       </div>
-    </div>
+
+      {copied && (
+        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 animate-pop rounded bg-text px-3 py-1.5 font-mono text-xs font-bold text-bg shadow-lg">
+          Copied!
+        </div>
+      )}
+    </Modal>
   )
 }

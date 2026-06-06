@@ -2,6 +2,7 @@ import type { GameState, Stats } from '../types'
 
 const GAME_KEY = 'geomaxx:game'
 const STATS_KEY = 'geomaxx:stats'
+const HELP_SEEN_KEY = 'geomaxx:help-seen'
 
 const DEFAULT_STATS: Stats = {
   played: 0,
@@ -9,6 +10,7 @@ const DEFAULT_STATS: Stats = {
   currentStreak: 0,
   maxStreak: 0,
   distribution: [0, 0, 0, 0, 0, 0, 0],
+  lastPuzzle: -1,
 }
 
 /** Persist the current puzzle's game state. */
@@ -49,4 +51,12 @@ export const loadStats = (): Stats => {
   } catch {
     return { ...DEFAULT_STATS }
   }
+}
+
+/** Whether the player has dismissed the how-to-play modal before. */
+export const hasSeenHelp = (): boolean =>
+  localStorage.getItem(HELP_SEEN_KEY) === '1'
+
+export const markHelpSeen = (): void => {
+  localStorage.setItem(HELP_SEEN_KEY, '1')
 }
