@@ -1,15 +1,12 @@
 import type { GuessResult } from '../types'
+import { distanceTier } from '../lib/score'
 
 /** Label shown in the zoom badge for each zoom-out step. */
 const ZOOM_LABELS = ['STREET', 'BLOCK', 'DISTRICT', 'CITY', 'REGION', 'COUNTRY']
 
-/** Distance-bucket colours: green <500, yellow <1500, orange <3000, red beyond. */
-const distanceStyle = (km: number): { border: string; text: string } => {
-  if (km < 500) return { border: 'border-success', text: 'text-success' }
-  if (km < 1500) return { border: 'border-warning', text: 'text-warning' }
-  if (km < 3000) return { border: 'border-orange', text: 'text-orange' }
-  return { border: 'border-accent', text: 'text-accent' }
-}
+/** Tier → border/text colour classes (green, yellow, orange, red). */
+const TIER_BORDER = ['border-success', 'border-warning', 'border-orange', 'border-accent']
+const TIER_TEXT = ['text-success', 'text-warning', 'text-orange', 'text-accent']
 
 interface HUDProps {
   guesses: GuessResult[]
@@ -46,18 +43,18 @@ export function HUD({ guesses, maxGuesses, zoomIndex }: HUDProps) {
 
       <div className="absolute right-3 top-3 flex w-44 flex-col gap-2">
         {guesses.map((g) => {
-          const s = distanceStyle(g.distanceKm)
+          const tier = distanceTier(g.distanceKm)
           return (
             <div
               key={g.locationName}
-              className={`flex animate-slide-in-right items-center justify-between gap-2 rounded border-l-4 bg-surface/90 px-2.5 py-1.5 shadow ${s.border}`}
+              className={`flex animate-slide-in-right items-center justify-between gap-2 rounded border-l-4 bg-surface/90 px-2.5 py-1.5 shadow ${TIER_BORDER[tier]}`}
             >
               <span className="min-w-0 flex-1 truncate font-sans text-xs text-text">
                 {g.locationName}
               </span>
               <span
                 className={`shrink-0 font-mono text-xs font-bold ${
-                  g.correct ? 'text-success' : s.text
+                  g.correct ? 'text-success' : TIER_TEXT[tier]
                 }`}
               >
                 {g.correct ? '✓' : `${g.distanceKm.toLocaleString()} km`}

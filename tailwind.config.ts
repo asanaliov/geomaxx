@@ -31,9 +31,14 @@ export default {
           '0%': { opacity: '0', transform: 'translateX(20px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
         },
+        pop: {
+          '0%': { opacity: '0', transform: 'scale(0.92)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
       },
       animation: {
         'slide-in-right': 'slide-in-right 0.3s ease-out',
+        pop: 'pop 0.2s ease-out',
       },
     },
   },

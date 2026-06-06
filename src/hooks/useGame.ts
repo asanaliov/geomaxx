@@ -25,6 +25,7 @@ const freshState = (puzzleNumber: number): GameState => ({
 
 interface UseGame {
   answer: Location
+  puzzleNumber: number
   guesses: GuessResult[]
   currentZoom: number
   zoomIndex: number
@@ -76,6 +77,7 @@ export function useGame(): UseGame {
 
   return {
     answer,
+    puzzleNumber,
     guesses: state.guesses,
     currentZoom: ZOOM_LEVELS[state.zoomIndex],
     zoomIndex: state.zoomIndex,
