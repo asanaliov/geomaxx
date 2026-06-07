@@ -14,14 +14,20 @@ interface HUDProps {
   zoomIndex: number
 }
 
-/** Read-only overlay rendered above the map: progress, zoom badge, guess chips. */
+/** Read-only overlay rendered above the map: zoom badge, guesses-left panel. */
 export function HUD({ guesses, maxGuesses, zoomIndex }: HUDProps) {
+  const remaining = maxGuesses - guesses.length
+
   return (
-    <div className="pointer-events-none absolute inset-0 z-10 p-3">
-      <div className="absolute left-3 top-3 flex flex-col gap-2">
-        <div className="flex items-center gap-2 rounded bg-surface/90 px-2.5 py-1.5 shadow">
+    <div className="pointer-events-none absolute inset-0 z-[1000] p-3">
+      <div className="absolute left-3 top-3 self-start rounded bg-surface/90 px-2.5 py-1 font-mono text-xs text-text-dim shadow">
+        ZOOM ×{zoomIndex + 1} {ZOOM_LABELS[zoomIndex]}
+      </div>
+
+      <div className="absolute right-3 top-3 flex w-44 max-w-[45vw] flex-col gap-2">
+        <div className="flex items-center justify-between gap-2 rounded bg-surface/90 px-2.5 py-1.5 shadow">
           <span className="font-mono text-sm font-bold text-text">
-            {guesses.length}/{maxGuesses}
+            {remaining} <span className="text-text-dim">LEFT</span>
           </span>
           <div className="flex gap-1">
             {Array.from({ length: maxGuesses }, (_, i) => {
@@ -36,12 +42,6 @@ export function HUD({ guesses, maxGuesses, zoomIndex }: HUDProps) {
           </div>
         </div>
 
-        <div className="self-start rounded bg-surface/90 px-2.5 py-1 font-mono text-xs text-text-dim shadow">
-          ZOOM ×{zoomIndex + 1} {ZOOM_LABELS[zoomIndex]}
-        </div>
-      </div>
-
-      <div className="absolute right-3 top-3 flex w-44 max-w-[45vw] flex-col gap-2">
         {guesses.map((g) => {
           const tier = distanceTier(g.distanceKm)
           return (
