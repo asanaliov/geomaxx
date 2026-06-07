@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 
 interface ModalProps {
   open: boolean
@@ -6,8 +6,25 @@ interface ModalProps {
   children: ReactNode
 }
 
-/** Shared modal shell: dimmed backdrop, centered pop-in card, close button. */
+/**
+ * Shared modal shell: dimmed backdrop, centered pop-in card, close button.
+ * Closes on Escape or backdrop click and locks body scroll while open.
+ */
 export function Modal({ open, onClose, children }: ModalProps) {
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [open, onClose])
+
   if (!open) return null
 
   return (
@@ -16,7 +33,7 @@ export function Modal({ open, onClose, children }: ModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-sm animate-pop rounded-lg border border-border bg-surface p-6 shadow-xl"
+        className="relative max-h-[85vh] w-full max-w-sm animate-pop overflow-y-auto rounded-lg border border-border bg-surface p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button

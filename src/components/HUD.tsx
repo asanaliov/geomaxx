@@ -41,7 +41,7 @@ export function HUD({ guesses, maxGuesses, zoomIndex }: HUDProps) {
         </div>
       </div>
 
-      <div className="absolute right-3 top-3 flex w-44 flex-col gap-2">
+      <div className="absolute right-3 top-3 flex w-44 max-w-[45vw] flex-col gap-2">
         {guesses.map((g) => {
           const tier = distanceTier(g.distanceKm)
           return (

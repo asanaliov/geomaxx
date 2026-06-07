@@ -7,6 +7,7 @@ import { HUD } from './components/HUD'
 import { ResultModal } from './components/ResultModal'
 import { StatsModal } from './components/StatsModal'
 import { MAX_GUESSES, useGame } from './hooks/useGame'
+import { useMidnightReload } from './hooks/useMidnightReload'
 import { useStats } from './hooks/useStats'
 import { hasSeenHelp, markHelpSeen } from './lib/storage'
 
@@ -28,6 +29,8 @@ function App() {
   } = useGame()
 
   const { stats, recordResult } = useStats()
+  useMidnightReload()
+
   const [modalOpen, setModalOpen] = useState(false)
   const [helpOpen, setHelpOpen] = useState(() => !hasSeenHelp())
   const [statsOpen, setStatsOpen] = useState(false)

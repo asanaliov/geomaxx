@@ -72,7 +72,7 @@ export function ResultModal({
       </div>
 
       {copied && (
-        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 animate-pop rounded bg-text px-3 py-1.5 font-mono text-xs font-bold text-bg shadow-lg">
+        <div className="fixed bottom-8 left-1/2 z-[1200] -translate-x-1/2 animate-pop rounded bg-text px-3 py-1.5 font-mono text-xs font-bold text-bg shadow-lg">
           Copied!
         </div>
       )}
