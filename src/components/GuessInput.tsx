@@ -68,7 +68,7 @@ export function GuessInput({ guesses, disabled, onGuess }: GuessInputProps) {
   return (
     <div className="relative border-t border-border bg-surface px-4 py-3">
       {showDropdown && (
-        <ul className="absolute bottom-full left-4 right-4 mb-2 overflow-hidden rounded border border-border bg-surface-2 shadow-lg">
+        <ul className="absolute bottom-full left-4 right-4 z-[1000] mb-2 overflow-hidden rounded border border-border bg-surface-2 shadow-lg">
           {suggestions.map((s, i) => (
             <li key={s.name}>
               <button
