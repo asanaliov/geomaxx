@@ -21,8 +21,8 @@ export function HelpModal({ open, onClose }: HelpModalProps) {
       </p>
 
       <ul className="mt-4 space-y-2 font-sans text-sm text-text">
-        <li>🛰️ You start zoomed all the way in.</li>
-        <li>📉 Each wrong guess zooms the map out, revealing more.</li>
+        <li>🛰️ You start zoomed all the way out.</li>
+        <li>🔍 Each wrong guess zooms the map in, revealing more detail.</li>
         <li>📏 After every guess you see how far off you were.</li>
       </ul>
 
@@ -31,7 +31,7 @@ export function HelpModal({ open, onClose }: HelpModalProps) {
           Zoom progression
         </p>
         <p className="mt-1 font-mono text-sm text-text">
-          ×1 STREET → ×2 BLOCK → ×3 DISTRICT → ×4 CITY → ×5 REGION → ×6 COUNTRY
+          ×1 COUNTRY → ×2 REGION → ×3 CITY → ×4 DISTRICT → ×5 BLOCK → ×6 STREET
         </p>
       </div>
 

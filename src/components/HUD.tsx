@@ -1,8 +1,8 @@
 import type { GuessResult } from '../types'
 import { distanceTier } from '../lib/score'
 
-/** Label shown in the zoom badge for each zoom-out step. */
-const ZOOM_LABELS = ['STREET', 'BLOCK', 'DISTRICT', 'CITY', 'REGION', 'COUNTRY']
+/** Label shown in the zoom badge for each zoom-in step (wide → close). */
+const ZOOM_LABELS = ['COUNTRY', 'REGION', 'CITY', 'DISTRICT', 'BLOCK', 'STREET']
 
 /** Tier → border/text colour classes (green, yellow, orange, red). */
 const TIER_BORDER = ['border-success', 'border-warning', 'border-orange', 'border-accent']

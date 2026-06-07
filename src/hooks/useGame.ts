@@ -5,8 +5,12 @@ import { getDistanceKm } from '../lib/distance'
 import { LOCATIONS } from '../lib/locations'
 import { loadGame, saveGame } from '../lib/storage'
 
-/** Zoom level shown after each wrong guess; index 0 is the starting view. */
-export const ZOOM_LEVELS = [17, 15, 13, 11, 9, 7]
+/**
+ * Zoom level shown after each wrong guess. Index 0 is the starting view: the
+ * player begins zoomed out (country) and zooms in toward the landmark with
+ * every wrong guess, so the clearest view is the last reveal.
+ */
+export const ZOOM_LEVELS = [7, 9, 11, 13, 15, 17]
 export const MAX_GUESSES = ZOOM_LEVELS.length
 
 /** Zoom index = wrong guesses so far, capped at the most zoomed-out level. */
