@@ -30,7 +30,7 @@ export const LOCATIONS: Location[] = [
   { name: 'Niagara Falls', lat: 43.0799, lng: -79.0747, country: 'Canada', continent: 'North America', difficulty: 'medium' },
   { name: 'Chichen Itza', lat: 20.6843, lng: -88.5678, country: 'Mexico', continent: 'North America', difficulty: 'hard' },
   { name: 'Hagia Sophia', lat: 41.0086, lng: 28.9802, country: 'Turkey', continent: 'Europe', difficulty: 'hard' },
-  { name: 'Easter Island Moai', lat: -27.1257, lng: -109.2769, country: 'Chile', continent: 'South America', difficulty: 'hard' },
+  { name: 'Easter Island Moai', lat: -27.1257, lng: -109.2769, country: 'Chile', continent: 'South America', difficulty: 'hard', zoomLevels: [10, 11, 12, 13, 15, 17] },
   { name: 'Uluru', lat: -25.3444, lng: 131.0369, country: 'Australia', continent: 'Oceania', difficulty: 'hard' },
   { name: 'Neuschwanstein Castle', lat: 47.5576, lng: 10.7498, country: 'Germany', continent: 'Europe', difficulty: 'hard' },
   { name: 'Forbidden City', lat: 39.9163, lng: 116.3972, country: 'China', continent: 'Asia', difficulty: 'hard' },

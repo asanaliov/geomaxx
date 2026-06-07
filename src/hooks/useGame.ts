@@ -46,6 +46,7 @@ interface UseGame {
 export function useGame(): UseGame {
   const puzzleNumber = getPuzzleNumber()
   const answer = LOCATIONS[getDailyIndex()]
+  const zoomLevels = answer.zoomLevels ?? ZOOM_LEVELS
 
   const [state, setState] = useState<GameState>(
     () => loadGame(puzzleNumber) ?? freshState(puzzleNumber),
@@ -83,7 +84,7 @@ export function useGame(): UseGame {
     answer,
     puzzleNumber,
     guesses: state.guesses,
-    currentZoom: ZOOM_LEVELS[state.zoomIndex],
+    currentZoom: zoomLevels[state.zoomIndex],
     zoomIndex: state.zoomIndex,
     gameOver: state.gameOver,
     won: state.won,

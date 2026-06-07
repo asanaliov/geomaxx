@@ -16,6 +16,12 @@ export interface Location {
   country: string
   continent: Continent
   difficulty: Difficulty
+  /**
+   * Optional per-puzzle zoom progression (must be 6 levels), overriding the
+   * default wide start. For landmarks the default doesn't suit — e.g. small
+   * ocean-surrounded islands that are a sub-pixel speck at the default start zoom.
+   */
+  zoomLevels?: number[]
 }
 
 /** A single submitted guess and its computed outcome. */
