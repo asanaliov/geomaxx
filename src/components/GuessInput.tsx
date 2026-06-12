@@ -68,7 +68,7 @@ export function GuessInput({ guesses, disabled, onGuess }: GuessInputProps) {
   return (
     <div className="relative border-t border-border bg-surface px-4 py-3">
       {showDropdown && (
-        <ul className="absolute bottom-full left-4 right-4 z-[1000] mb-2 overflow-hidden rounded border border-border bg-surface-2 shadow-lg">
+        <ul className="absolute bottom-full left-4 right-4 z-[1000] mb-2 animate-rise-in overflow-hidden rounded-sm border border-border bg-surface-2 shadow-panel">
           {suggestions.map((s, i) => (
             <li key={s.name}>
               <button
@@ -79,7 +79,7 @@ export function GuessInput({ guesses, disabled, onGuess }: GuessInputProps) {
                   setOpen(false)
                 }}
                 onMouseEnter={() => setHighlight(i)}
-                className={`flex w-full items-center justify-between px-3 py-2 text-left font-sans text-sm ${
+                className={`flex w-full items-center justify-between px-3 py-2 text-left font-sans text-sm transition-colors ${
                   i === highlight ? 'bg-surface text-accent' : 'text-text'
                 }`}
               >
@@ -98,7 +98,7 @@ export function GuessInput({ guesses, disabled, onGuess }: GuessInputProps) {
           type="text"
           value={query}
           disabled={disabled}
-          placeholder={disabled ? 'Game over' : 'Guess a landmark…'}
+          placeholder={disabled ? 'Game over' : 'Identify the landmark…'}
           onChange={(e) => {
             setQuery(e.target.value)
             setOpen(true)
@@ -107,15 +107,17 @@ export function GuessInput({ guesses, disabled, onGuess }: GuessInputProps) {
           onFocus={() => setOpen(true)}
           onBlur={() => setOpen(false)}
           onKeyDown={handleKeyDown}
-          className={`flex-1 rounded border bg-surface-2 px-3 py-2 font-sans text-text placeholder:text-text-dim focus:outline-none ${
-            invalid ? 'border-accent' : 'border-border focus:border-text-dim'
+          className={`flex-1 rounded-sm border bg-surface-2 px-3 py-2 font-sans text-text transition-colors placeholder:text-text-dim focus:outline-none ${
+            invalid
+              ? 'border-accent shadow-glow'
+              : 'border-border focus:border-text-dim'
           }`}
         />
         <button
           type="button"
           disabled={disabled}
           onClick={() => submit(suggestions[0]?.name ?? query)}
-          className="rounded bg-accent px-4 py-2 font-mono text-sm font-bold text-bg transition-opacity disabled:opacity-40"
+          className="rounded-sm bg-accent px-5 py-2 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-40"
         >
           Guess
         </button>

@@ -29,11 +29,11 @@ export function Modal({ open, onClose, children }: ModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/60 p-4"
+      className="fixed inset-0 z-[1100] flex animate-fade-in items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="relative max-h-[85vh] w-full max-w-sm animate-pop overflow-y-auto rounded-lg border border-border bg-surface p-6 shadow-xl"
+        className="relative max-h-[85vh] w-full max-w-sm animate-pop overflow-y-auto rounded-lg border border-border bg-surface p-6 shadow-panel"
         onClick={(e) => e.stopPropagation()}
       >
         <button

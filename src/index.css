@@ -13,4 +13,26 @@
     @apply bg-bg text-text font-sans antialiased;
     margin: 0;
   }
+
+  ::selection {
+    @apply bg-accent text-bg;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.border') transparent;
+  }
+}
+
+@layer utilities {
+  /* Viewfinder corner bracket: pair with rotate utilities for each corner. */
+  .hud-bracket {
+    @apply pointer-events-none absolute h-6 w-6 border-l-2 border-t-2 border-text/40;
+  }
+}
+
+/* Soften Leaflet's tile fade and match the void behind tiles to our bg. */
+.leaflet-container {
+  background: theme('colors.bg');
+  font-family: inherit;
 }

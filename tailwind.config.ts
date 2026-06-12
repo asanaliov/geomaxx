@@ -35,10 +35,29 @@ export default {
           '0%': { opacity: '0', transform: 'scale(0.92)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.25' },
+        },
+        'rise-in': {
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'slide-in-right': 'slide-in-right 0.3s ease-out',
         pop: 'pop 0.2s ease-out',
+        'fade-in': 'fade-in 0.25s ease-out',
+        blink: 'blink 1.6s ease-in-out infinite',
+        'rise-in': 'rise-in 0.3s ease-out',
+      },
+      boxShadow: {
+        glow: '0 0 0 1px rgba(255, 107, 107, 0.35), 0 0 24px rgba(255, 107, 107, 0.12)',
+        panel: '0 4px 24px rgba(0, 0, 0, 0.45)',
       },
     },
   },

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { msUntilNextUtcMidnight } from '../lib/time'
 
 /**
  * Reloads the page at the next UTC midnight so a fresh daily puzzle loads for
@@ -6,14 +7,10 @@ import { useEffect } from 'react'
  */
 export function useMidnightReload(): void {
   useEffect(() => {
-    const now = new Date()
-    const nextMidnightUtc = Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate() + 1,
+    const timer = setTimeout(
+      () => window.location.reload(),
+      msUntilNextUtcMidnight() + 1000,
     )
-    const msUntil = nextMidnightUtc - now.getTime() + 1000
-    const timer = setTimeout(() => window.location.reload(), msUntil)
     return () => clearTimeout(timer)
   }, [])
 }

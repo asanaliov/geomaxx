@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { GuessResult, Location } from '../types'
 import { buildShareText, guessEmoji } from '../lib/score'
+import { useCountdown } from '../hooks/useCountdown'
 import { Modal } from './Modal'
 
 /** Win titles indexed by guess count (1–6). Index 0 is unused. */
@@ -26,12 +27,21 @@ export function ResultModal({
 }: ResultModalProps) {
   const [copied, setCopied] = useState(false)
   const toastTimer = useRef<number | undefined>(undefined)
+  const countdown = useCountdown(open)
 
   const handleShare = async () => {
+    const text = buildShareText(puzzleNumber, won, guesses)
+    // Prefer the native share sheet (mobile); fall back to the clipboard.
+    if (navigator.share) {
+      try {
+        await navigator.share({ text })
+        return
+      } catch {
+        // Cancelled or unsupported payload — fall through to clipboard.
+      }
+    }
     try {
-      await navigator.clipboard.writeText(
-        buildShareText(puzzleNumber, won, guesses),
-      )
+      await navigator.clipboard.writeText(text)
       setCopied(true)
       window.clearTimeout(toastTimer.current)
       toastTimer.current = window.setTimeout(() => setCopied(false), TOAST_MS)
@@ -62,17 +72,26 @@ export function ResultModal({
           {won ? guesses.length : 'X'}/6
         </p>
 
+        <div className="mt-5 rounded-sm border border-border bg-surface-2 px-4 py-2.5">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-text-dim">
+            Next puzzle in
+          </p>
+          <p className="font-mono text-xl font-bold tabular-nums text-text">
+            {countdown}
+          </p>
+        </div>
+
         <button
           type="button"
           onClick={handleShare}
-          className="mt-5 w-full rounded bg-success px-4 py-2.5 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90"
+          className="mt-4 w-full rounded-sm bg-success px-4 py-2.5 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90"
         >
           Share
         </button>
       </div>
 
       {copied && (
-        <div className="fixed bottom-8 left-1/2 z-[1200] -translate-x-1/2 animate-pop rounded bg-text px-3 py-1.5 font-mono text-xs font-bold text-bg shadow-lg">
+        <div className="fixed bottom-8 left-1/2 z-[1200] -translate-x-1/2 animate-pop rounded-sm bg-text px-3 py-1.5 font-mono text-xs font-bold text-bg shadow-panel">
           Copied!
         </div>
       )}

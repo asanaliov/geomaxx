@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { GameMap } from './components/GameMap'
+import { GameOverBar } from './components/GameOverBar'
 import { GuessInput } from './components/GuessInput'
 import { Header } from './components/Header'
 import { HelpModal } from './components/HelpModal'
@@ -55,6 +56,7 @@ function App() {
   return (
     <div className="flex h-full flex-col">
       <Header
+        puzzleNumber={puzzleNumber}
         onHelp={() => setHelpOpen(true)}
         onStats={() => setStatsOpen(true)}
       />
@@ -66,10 +68,19 @@ function App() {
           zoomLevel={mapZoom}
           revealMarker={gameOver}
         />
-        <HUD guesses={guesses} maxGuesses={MAX_GUESSES} zoomIndex={zoomIndex} />
+        <HUD
+          guesses={guesses}
+          maxGuesses={MAX_GUESSES}
+          zoomIndex={zoomIndex}
+          gameOver={gameOver}
+        />
       </main>
 
-      <GuessInput guesses={guesses} disabled={gameOver} onGuess={submitGuess} />
+      {gameOver ? (
+        <GameOverBar won={won} onShowResults={() => setModalOpen(true)} />
+      ) : (
+        <GuessInput guesses={guesses} disabled={false} onGuess={submitGuess} />
+      )}
 
       <ResultModal
         open={modalOpen}
