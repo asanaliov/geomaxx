@@ -69,5 +69,5 @@ If Commons returns unrelated photos for an ambiguous landmark name, set a more s
 
 ## Deployment
 
-The app is a static Vite build (`dist/`) and deploys to any static host. On
-Vercel it auto-detects the Vite preset — no configuration needed.
+The app is a static Vite build (`dist/`) and deploys to any static host.
+Vercel auto-detects the Vite preset, while `vercel.json` applies the browser security headers.

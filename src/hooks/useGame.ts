@@ -2,18 +2,11 @@ import { useEffect, useState } from 'react'
 import type { GameState, GuessResult, Location } from '../types'
 import { getDailyIndex, getPuzzleNumber } from '../lib/daily'
 import { getDistanceKm } from '../lib/distance'
+import { MAX_GUESSES, ZOOM_LEVELS } from '../lib/gameConfig'
 import { LOCATIONS } from '../lib/locations'
 import { loadGame, saveGame } from '../lib/storage'
 
-/**
- * Zoom level shown after each wrong guess. Index 0 is the starting view: the
- * player begins zoomed out (country) and zooms in toward the landmark with
- * every wrong guess, so the clearest view is the last reveal.
- */
-export const ZOOM_LEVELS = [7, 9, 11, 13, 15, 17]
-export const MAX_GUESSES = ZOOM_LEVELS.length
-
-/** Zoom index = wrong guesses so far, capped at the most zoomed-out level. */
+/** Zoom index = wrong guesses so far, capped at the final reveal level. */
 const zoomIndexFor = (guesses: GuessResult[]): number => {
   const wrong = guesses.filter((g) => !g.correct).length
   return Math.min(wrong, ZOOM_LEVELS.length - 1)
@@ -49,7 +42,7 @@ export function useGame(): UseGame {
   const zoomLevels = answer.zoomLevels ?? ZOOM_LEVELS
 
   const [state, setState] = useState<GameState>(
-    () => loadGame(puzzleNumber) ?? freshState(puzzleNumber),
+    () => loadGame(puzzleNumber, answer.name) ?? freshState(puzzleNumber),
   )
 
   useEffect(() => {

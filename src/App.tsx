@@ -7,9 +7,10 @@ import { HelpModal } from './components/HelpModal'
 import { HUD } from './components/HUD'
 import { ResultModal } from './components/ResultModal'
 import { StatsModal } from './components/StatsModal'
-import { MAX_GUESSES, useGame } from './hooks/useGame'
+import { useGame } from './hooks/useGame'
 import { useMidnightReload } from './hooks/useMidnightReload'
 import { useStats } from './hooks/useStats'
+import { MAX_GUESSES } from './lib/gameConfig'
 import { hasSeenHelp, markHelpSeen } from './lib/storage'
 
 /** Zoom the map settles on when revealing the answer. */
