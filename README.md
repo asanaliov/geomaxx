@@ -15,7 +15,7 @@ One puzzle per day, the same for everyone, rolled at midnight UTC.
    DISTRICT → BLOCK → STREET`) and tells you how far off you were.
 4. Distance feedback is colour-coded: 🟩 within 500 km · 🟨 within 1,500 km ·
    🟧 within 3,000 km · 🟥 farther.
-5. Guess it within 6 tries to win, then share your result grid.
+5. Finish the puzzle to reveal the landmark and its photo gallery, then share your result grid.
 
 The map controls are intentionally locked — you only ever see what the game
 reveals.
@@ -26,6 +26,7 @@ reveals.
 - **Tailwind CSS** (dark theme only)
 - **Leaflet** + **react-leaflet** with **Esri World Imagery** satellite tiles
   (no API key required)
+- **Wikimedia Commons** for credited post-game landmark photos
 - **localStorage** for game state and stats — no backend
 
 Everything runs client-side: the daily puzzle is derived from the UTC date via a
@@ -64,6 +65,7 @@ location can be both the daily answer (the map centres on it) and a guess (used
 for distance). For spots that are a tiny speck at the default wide start (e.g.
 small ocean-bound islands), set an optional `zoomLevels: [...]` (6 levels) to
 start the puzzle zoomed in enough to be recognizable.
+If Commons returns unrelated photos for an ambiguous landmark name, set a more specific `photoSearch` value.
 
 ## Deployment
 

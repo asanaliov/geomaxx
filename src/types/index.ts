@@ -16,6 +16,8 @@ export interface Location {
   country: string
   continent: Continent
   difficulty: Difficulty
+  /** Optional Commons search for landmarks whose display name is ambiguous. */
+  photoSearch?: string
   /**
    * Optional per-puzzle zoom progression (must be 6 levels), overriding the
    * default wide start. For landmarks the default doesn't suit — e.g. small

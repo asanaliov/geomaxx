@@ -4,13 +4,19 @@ interface ModalProps {
   open: boolean
   onClose: () => void
   children: ReactNode
+  size?: 'sm' | 'md'
 }
+
+const WIDTH_CLASSES = {
+  sm: 'max-w-sm',
+  md: 'max-w-md',
+} as const
 
 /**
  * Shared modal shell: dimmed backdrop, centered pop-in card, close button.
  * Closes on Escape or backdrop click and locks body scroll while open.
  */
-export function Modal({ open, onClose, children }: ModalProps) {
+export function Modal({ open, onClose, children, size = 'sm' }: ModalProps) {
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -33,7 +39,7 @@ export function Modal({ open, onClose, children }: ModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative max-h-[85vh] w-full max-w-sm animate-pop overflow-y-auto rounded-lg border border-border bg-surface p-6 shadow-panel"
+        className={`relative max-h-[85vh] w-full ${WIDTH_CLASSES[size]} animate-pop overflow-y-auto rounded-lg border border-border bg-surface p-6 shadow-panel`}
         onClick={(e) => e.stopPropagation()}
       >
         <button

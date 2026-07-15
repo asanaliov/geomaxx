@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import type { GuessResult, Location } from '../types'
 import { buildShareText, guessEmoji } from '../lib/score'
 import { useCountdown } from '../hooks/useCountdown'
+import { LandmarkGallery } from './LandmarkGallery'
 import { Modal } from './Modal'
 
 /** Win titles indexed by guess count (1–6). Index 0 is unused. */
@@ -51,7 +52,7 @@ export function ResultModal({
   }
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} size="md">
       <div className="text-center">
         <div className="text-5xl">{won ? '🎉' : '😔'}</div>
         <h2 className="mt-3 font-mono text-2xl font-bold text-text">
@@ -71,6 +72,8 @@ export function ResultModal({
         <p className="mt-1 font-mono text-sm text-text-dim">
           {won ? guesses.length : 'X'}/6
         </p>
+
+        <LandmarkGallery key={answer.name} location={answer} />
 
         <div className="mt-5 rounded-sm border border-border bg-surface-2 px-4 py-2.5">
           <p className="font-mono text-[10px] uppercase tracking-widest text-text-dim">
