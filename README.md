@@ -1,3 +1,5 @@
+<img width="452" height="174" alt="image" src="https://github.com/user-attachments/assets/69bc219e-bf59-4273-9913-583cb4260936" />
+
 # 🌍 GeoMaxx
 
 A daily satellite-image guessing game. Each day, identify one landmark from an
