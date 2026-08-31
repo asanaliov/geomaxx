@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react'
-import { GameMap } from './components/GameMap'
-import { GameOverBar } from './components/GameOverBar'
-import { GuessInput } from './components/GuessInput'
-import { Header } from './components/Header'
-import { HelpModal } from './components/HelpModal'
-import { HUD } from './components/HUD'
-import { ResultModal } from './components/ResultModal'
-import { StatsModal } from './components/StatsModal'
-import { useGame } from './hooks/useGame'
-import { useMidnightReload } from './hooks/useMidnightReload'
-import { useStats } from './hooks/useStats'
-import { MAX_GUESSES } from './lib/gameConfig'
-import { hasSeenHelp, markHelpSeen } from './lib/storage'
+import { useEffect, useState } from "react";
+import { GameMap } from "./components/GameMap";
+import { GameOverBar } from "./components/GameOverBar";
+import { GuessInput } from "./components/GuessInput";
+import { Header } from "./components/Header";
+import { HelpModal } from "./components/HelpModal";
+import { HUD } from "./components/HUD";
+import { ResultModal } from "./components/ResultModal";
+import { StatsModal } from "./components/StatsModal";
+import { useGame } from "./hooks/useGame";
+import { useMidnightReload } from "./hooks/useMidnightReload";
+import { useStats } from "./hooks/useStats";
+import { MAX_GUESSES } from "./lib/gameConfig";
+import { hasSeenHelp, markHelpSeen } from "./lib/storage";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 /** Zoom the map settles on when revealing the answer. */
-const REVEAL_ZOOM = 15
+const REVEAL_ZOOM = 15;
 /** Delay before the result modal appears, covering the reveal flyTo animation. */
-const REVEAL_DELAY_MS = 1400
+const REVEAL_DELAY_MS = 1400;
 
 function App() {
   const {
@@ -28,31 +30,31 @@ function App() {
     gameOver,
     won,
     submitGuess,
-  } = useGame()
+  } = useGame();
 
-  const { stats, recordResult } = useStats()
-  useMidnightReload()
+  const { stats, recordResult } = useStats();
+  useMidnightReload();
 
-  const [modalOpen, setModalOpen] = useState(false)
-  const [helpOpen, setHelpOpen] = useState(() => !hasSeenHelp())
-  const [statsOpen, setStatsOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(() => !hasSeenHelp());
+  const [statsOpen, setStatsOpen] = useState(false);
 
-  const guessCount = guesses.length
+  const guessCount = guesses.length;
 
   useEffect(() => {
-    if (!gameOver) return
-    recordResult(puzzleNumber, won, guessCount)
-    const timer = setTimeout(() => setModalOpen(true), REVEAL_DELAY_MS)
-    return () => clearTimeout(timer)
-  }, [gameOver, puzzleNumber, won, guessCount, recordResult])
+    if (!gameOver) return;
+    recordResult(puzzleNumber, won, guessCount);
+    const timer = setTimeout(() => setModalOpen(true), REVEAL_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [gameOver, puzzleNumber, won, guessCount, recordResult]);
 
   const closeHelp = () => {
-    setHelpOpen(false)
-    markHelpSeen()
-  }
+    setHelpOpen(false);
+    markHelpSeen();
+  };
 
-  const mapZoom = won ? REVEAL_ZOOM : currentZoom
-  const todayBucket = gameOver ? (won ? guessCount - 1 : 6) : null
+  const mapZoom = won ? REVEAL_ZOOM : currentZoom;
+  const todayBucket = gameOver ? (won ? guessCount - 1 : 6) : null;
 
   return (
     <div className="flex h-full flex-col">
@@ -100,8 +102,10 @@ function App() {
         stats={stats}
         highlightBucket={todayBucket}
       />
+      <Analytics />
+      <SpeedInsights />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
