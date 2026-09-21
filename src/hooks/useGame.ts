@@ -25,6 +25,8 @@ interface UseGame {
   puzzleNumber: number
   guesses: GuessResult[]
   currentZoom: number
+  /** Zoom shown after the next wrong guess (same as current at the final level). */
+  nextZoom: number
   zoomIndex: number
   gameOver: boolean
   won: boolean
@@ -78,6 +80,7 @@ export function useGame(): UseGame {
     puzzleNumber,
     guesses: state.guesses,
     currentZoom: zoomLevels[state.zoomIndex],
+    nextZoom: zoomLevels[Math.min(state.zoomIndex + 1, zoomLevels.length - 1)],
     zoomIndex: state.zoomIndex,
     gameOver: state.gameOver,
     won: state.won,
