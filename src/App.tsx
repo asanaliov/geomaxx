@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { GameMap } from "./components/GameMap";
 import { GameOverBar } from "./components/GameOverBar";
 import { GuessInput } from "./components/GuessInput";
@@ -25,6 +25,7 @@ function App() {
     answer,
     puzzleNumber,
     currentZoom,
+    nextZoom,
     zoomIndex,
     guesses,
     gameOver,
@@ -54,6 +55,10 @@ function App() {
   };
 
   const mapZoom = won ? REVEAL_ZOOM : currentZoom;
+  const preloadZoomLevels = useMemo(
+    () => (gameOver ? [] : [nextZoom, REVEAL_ZOOM]),
+    [gameOver, nextZoom],
+  );
   const todayBucket = gameOver ? (won ? guessCount - 1 : 6) : null;
 
   return (
@@ -69,6 +74,7 @@ function App() {
           lat={answer.lat}
           lng={answer.lng}
           zoomLevel={mapZoom}
+          preloadZoomLevels={preloadZoomLevels}
           revealMarker={gameOver}
         />
         <HUD
